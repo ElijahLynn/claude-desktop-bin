@@ -57,7 +57,7 @@ is an opacity throb. Set `null` to inherit only claude.ai's own motion.
 | `catppuccin-macchiato` | cat head | 1 | currentColor | `pulse` |
 | `catppuccin-frappe` | cat head | 1 | currentColor | `pulse` |
 | `catppuccin-latte` | coffee cup | 1 | currentColor | `pulse` |
-| `solarized-light` | 8-ray sun | 1 | currentColor | `spin` |
+| `chai` | 8-ray sun | 1 | currentColor | `spin` |
 
 The three `catppuccin-*` dark variants intentionally **share** the cat-head shape; only
 `catppuccin-latte` (the light variant) gets the coffee cup.
@@ -155,11 +155,11 @@ M23 54 L65 54 L60 84 L28 84 Z M22 87 L66 87 L61 91 L27 91 Z M65 57 A 13 13 0 1 1
 
 ---
 
-### 8. `solarized-light` - 8-ray sun (1 path, currentColor, `spin`)
+### 8. `chai` - 8-ray sun (1 path, currentColor, `spin`)
 
 A center disc with 8 tapered triangular rays radiating at 45deg spacing - a plain sun
-glyph, matching the theme's name. Follows the theme accent (deep gold in light, brighter
-gold in dark).
+glyph. Follows the theme accent (deep spiced-gold in the "chai-light" variant, brighter
+gold in "chai-dark").
 
 - Construction: center disc radius 20; each ray is a 3-point triangle with its two base
   corners on the disc's edge (radius 20, +-9deg either side of the ray's spoke angle) and

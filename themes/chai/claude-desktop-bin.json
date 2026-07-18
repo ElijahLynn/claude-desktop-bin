@@ -1,7 +1,7 @@
 {
-  "activeTheme": "solarized-light",
+  "activeTheme": "chai",
   "themes": {
-    "solarized-light": {
+    "chai": {
       "light": {
         "--bg-000": "45 55% 95%",
         "--bg-100": "43 48% 91%",
