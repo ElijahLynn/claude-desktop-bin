@@ -248,6 +248,7 @@ The Mario theme ships a **light "overworld"** and a **dark "underground"** varia
 | `catppuccin-macchiato` | Latte | Macchiato | cat |
 | `catppuccin-frappe` | Latte | Frappe | cat |
 | `catppuccin-latte` | Latte | Mocha | coffee cup |
+| `solarized-light` | warm sepia/brown-gold (Solarized, warmed off the usual cyan-blue neutrals) | matching warm-brown dark | sun |
 
 Each theme can also inject raw `customCss` and replace the loading glyph with a custom SVG. See **[themes/README.md](themes/README.md)** for the schema, CSS-variable reference, contrast tips, and how to author your own.
 

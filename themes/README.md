@@ -111,6 +111,7 @@ dual-variant and live inside the patch:
 | `catppuccin-frappe` | Catppuccin **Latte** (light) | Catppuccin **Frappe** (dark) - mauve accent | cat head (`pulse`) |
 | `catppuccin-latte` | Catppuccin **Latte** (light) | Catppuccin **Mocha** (dark) | coffee cup (`pulse`) |
 | `mario` | sky-blue overworld: pale-blue surfaces, dark-navy text, Mario-red accent | warm-brick underground: brown surfaces, cream text, Mario-red accent + coin-gold/pipe-green status | mushroom (`bounce`) |
+| `solarized-light` | warm sepia/brown-gold surfaces, deep-gold accent (Solarized, re-hued off its usual cyan-blue neutrals toward brown/yellow) | matching warm-brown surfaces, brighter gold accent | sun (`spin`) |
 
 Notes:
 
@@ -132,7 +133,7 @@ claude.ai's brand-star glyph (matched by its path signature) and swaps in your p
 keeping the `<svg>` wrapper so the accent color and box size are preserved. Animation
 keyframes ship alongside the theme CSS.
 
-The seven shapes that ship with the built-ins:
+The eight shapes that ship with the built-ins:
 
 | Theme | Shape | Color | Animation |
 |-------|-------|-------|-----------|
@@ -143,6 +144,7 @@ The seven shapes that ship with the built-ins:
 | `catppuccin-macchiato` | cat head | accent (`currentColor`) | `pulse` |
 | `catppuccin-frappe` | cat head | accent (`currentColor`) | `pulse` |
 | `catppuccin-latte` | coffee cup | accent (`currentColor`) | `pulse` |
+| `solarized-light` | 8-ray sun | accent (`currentColor`) | `spin` |
 
 Shape format (in your theme object):
 

@@ -46,7 +46,7 @@ is an opacity throb. Set `null` to inherit only claude.ai's own motion.
 
 ---
 
-## The 7 shapes
+## The 8 shapes
 
 | Theme | Shape | Paths | Color | Animation |
 |-------|-------|-------|-------|-----------|
@@ -57,6 +57,7 @@ is an opacity throb. Set `null` to inherit only claude.ai's own motion.
 | `catppuccin-macchiato` | cat head | 1 | currentColor | `pulse` |
 | `catppuccin-frappe` | cat head | 1 | currentColor | `pulse` |
 | `catppuccin-latte` | coffee cup | 1 | currentColor | `pulse` |
+| `solarized-light` | 8-ray sun | 1 | currentColor | `spin` |
 
 The three `catppuccin-*` dark variants intentionally **share** the cat-head shape; only
 `catppuccin-latte` (the light variant) gets the coffee cup.
@@ -150,6 +151,23 @@ the right wall, and two slim S-curve steam wisps rising above. Follows the theme
 
 ```
 M23 54 L65 54 L60 84 L28 84 Z M22 87 L66 87 L61 91 L27 91 Z M65 57 A 13 13 0 1 1 65 81 L65 75 A 7 7 0 1 0 65 63 Z M40 50 C45 44 35 40 42 34 C45 28 37 24 40 18 L36 18 C33 24 41 28 38 34 C31 40 41 44 36 50 Z M52 50 C57 44 47 40 54 34 C57 28 49 24 52 18 L48 18 C45 24 53 28 50 34 C43 40 53 44 48 50 Z
+```
+
+---
+
+### 8. `solarized-light` - 8-ray sun (1 path, currentColor, `spin`)
+
+A center disc with 8 tapered triangular rays radiating at 45deg spacing - a plain sun
+glyph, matching the theme's name. Follows the theme accent (deep gold in light, brighter
+gold in dark).
+
+- Construction: center disc radius 20; each ray is a 3-point triangle with its two base
+  corners on the disc's edge (radius 20, +-9deg either side of the ray's spoke angle) and
+  its tip at radius 42 - so the base sits flush against the disc with no seam gap.
+- Color: `currentColor` (no `fill`).
+
+```
+M30 50 a 20 20 0 1 0 40 0 a 20 20 0 1 0 -40 0 Z M46.87 30.25 L50.00 8.00 L53.13 30.25 Z M61.76 33.82 L79.70 20.30 L66.18 38.24 Z M69.75 46.87 L92.00 50.00 L69.75 53.13 Z M66.18 61.76 L79.70 79.70 L61.76 66.18 Z M53.13 69.75 L50.00 92.00 L46.87 69.75 Z M38.24 66.18 L20.30 79.70 L33.82 61.76 Z M30.25 53.13 L8.00 50.00 L30.25 46.87 Z M33.82 38.24 L20.30 20.30 L38.24 33.82 Z
 ```
 
 ---
