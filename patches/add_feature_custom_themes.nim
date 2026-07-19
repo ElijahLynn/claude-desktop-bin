@@ -206,13 +206,20 @@ __cdb_css+="@keyframes cdbPulse{0%,100%{opacity:1}50%{opacity:.45}}";
 __cdb_css+="svg[data-cdb-spinner].cdb-anim-spin{animation:cdbSpin "+__cdb_durSpin+" linear infinite;transform-origin:50% 50%;transform-box:fill-box}";
 __cdb_css+="svg[data-cdb-spinner].cdb-anim-bounce{animation:cdbBounce "+__cdb_durBounce+" ease-in-out infinite;transform-origin:50% 50%;transform-box:fill-box}";
 __cdb_css+="svg[data-cdb-spinner].cdb-anim-pulse{animation:cdbPulse "+__cdb_durPulse+" ease-in-out infinite}";
-// flare: built for radiating ray shapes (chai's sun) -- path 1 (the disc/center) stays
-// static, paths 2-9 (up to 8 rays) each retract toward the center and back out on their
-// OWN duration+delay, so they drift in and out of phase instead of pulsing in unison.
+// flare: built for radiating ray shapes (chai's sun) -- two LAYERED animations that
+// stay independent because they touch different properties on different elements:
+//   1. A soft halo pulse (filter only, no transform) on the whole <svg> -- a steady
+//      "corona" breathing around the entire glyph, on its own period (3s) that doesn't
+//      line up with any ray's period, so it never looks synchronized with them.
+//   2. Path 1 (the disc/center) stays static; paths 2-9 (up to 8 rays) each retract
+//      toward the center and back out (transform only) on their OWN duration+delay, so
+//      they drift in and out of phase instead of pulsing in unison.
 // transform-box:view-box + a 0-100 viewBox-unit origin (not a %, which would compute per
 // path's own bounding box) keeps every ray scaling toward the true glyph center.
 // Not driven by spinner.duration (unlike spin/bounce/pulse) since it is inherently
-// multi-valued -- 8 independent timings, not one.
+// multi-valued -- 9 independent timings (1 halo + 8 rays), not one.
+__cdb_css+="@keyframes cdbFlareGlow{0%,100%{filter:drop-shadow(0 0 0 currentColor)}50%{filter:drop-shadow(0 0 6px currentColor)}}";
+__cdb_css+="svg[data-cdb-spinner].cdb-anim-flare{animation:cdbFlareGlow 3s ease-in-out infinite}";
 __cdb_css+="@keyframes cdbRayRetract{0%,100%{transform:scale(1)}50%{transform:scale(.5)}}";
 var __cdb_rayTimings=[["3.6s","-0.4s"],["4.4s","-2.1s"],["3.9s","-1.2s"],["4.8s","-3.4s"],["3.3s","-0.9s"],["4.2s","-2.6s"],["3.7s","-1.7s"],["4.6s","-0.2s"]];
 for(var __cdb_ri=0;__cdb_ri<__cdb_rayTimings.length;__cdb_ri++){
