@@ -111,7 +111,7 @@ dual-variant and live inside the patch:
 | `catppuccin-frappe` | Catppuccin **Latte** (light) | Catppuccin **Frappe** (dark) - mauve accent | cat head (`pulse`) |
 | `catppuccin-latte` | Catppuccin **Latte** (light) | Catppuccin **Mocha** (dark) | coffee cup (`pulse`) |
 | `mario` | sky-blue overworld: pale-blue surfaces, dark-navy text, Mario-red accent | warm-brick underground: brown surfaces, cream text, Mario-red accent + coin-gold/pipe-green status | mushroom (`bounce`) |
-| `chai` | "chai-light": warm cream/beige surfaces, deep spiced-gold accent | "chai-dark": deep spiced-brown surfaces, brighter gold accent | sun (`spin`) |
+| `chai` | "chai-light": warm cream/beige surfaces, deep spiced-gold accent | "chai-dark": deep spiced-brown surfaces, brighter gold accent | sun (`flare`) |
 
 Notes:
 
@@ -144,7 +144,7 @@ The eight shapes that ship with the built-ins:
 | `catppuccin-macchiato` | cat head | accent (`currentColor`) | `pulse` |
 | `catppuccin-frappe` | cat head | accent (`currentColor`) | `pulse` |
 | `catppuccin-latte` | coffee cup | accent (`currentColor`) | `pulse` |
-| `chai` | 8-ray sun | accent (`currentColor`) | `spin` |
+| `chai` | 8-ray sun | accent (`currentColor`) | `flare` |
 
 Shape format (in your theme object):
 
@@ -152,7 +152,8 @@ Shape format (in your theme object):
 "spinner": {
   "viewBox": "0 0 100 100",          // optional, default "0 0 100 100"
   "match": "m19.6 66.5 19.7-11",     // optional override of the star path signature
-  "animation": "spin|bounce|pulse|null",
+  "animation": "spin|bounce|pulse|flare|null",
+  "duration": "2s",                  // optional, overrides the stock per-type speed
   "paths": [ { "d": "...", "fill": "#hex" }, ... ]   // omit "fill" => currentColor (follows accent)
 }
 ```

@@ -128,7 +128,7 @@
       },
       "spinner": {
         "viewBox": "0 0 100 100",
-        "animation": "spin",
+        "animation": "flare",
         "duration": "4s",
         "paths": [
           {

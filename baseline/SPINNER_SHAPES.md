@@ -28,7 +28,8 @@ its path data, its color strategy, and how to swap/test one live in the running 
 "spinner": {
   "viewBox": "0 0 100 100",          // optional, default "0 0 100 100"
   "match": "m19.6 66.5 19.7-11",     // optional override of the star path signature
-  "animation": "spin|bounce|pulse|null",
+  "animation": "spin|bounce|pulse|flare|null",
+  "duration": "2s",                  // optional, overrides the stock per-type speed (see below)
   "paths": [ { "d": "...", "fill": "#hex" }, ... ]   // omit "fill" => currentColor
 }
 ```
@@ -39,10 +40,19 @@ to `--accent-brand`). An **explicit hex** pins a fixed color - needed only for t
 multi-color Mario mushroom. Every single-color shape below omits `fill` so it follows
 the theme's brand accent.
 
-**Animation:** adds a `cdb-anim-<spin|bounce|pulse>` class to the replaced `<svg>`. The
-keyframes live in the theme CSS (`insertCSS` path), not the injector. `spin` rotates
+**Animation:** adds a `cdb-anim-<spin|bounce|pulse|flare>` class to the replaced `<svg>`.
+The keyframes live in the theme CSS (`insertCSS` path), not the injector. `spin` rotates
 about the glyph center (`transform-box: fill-box`), `bounce` is a vertical hop, `pulse`
-is an opacity throb. Set `null` to inherit only claude.ai's own motion.
+is a flat opacity throb, `flare` is a slower scale+glow throb (the glyph grows slightly
+and gains a `currentColor` drop-shadow halo, then settles - built for `chai`'s sun but
+usable by any theme). Set `null` to inherit only claude.ai's own motion.
+
+**Duration:** each animation type has a stock default (`spin` 1s, `bounce` .8s, `pulse`
+1.2s, `flare` 2.4s). The optional `duration` field (e.g. `"2s"`, `"500ms"`) overrides
+whichever type the theme uses - validated against `/^\d+(\.\d+)?m?s$/` in the patch, so
+a malformed value silently falls back to the stock default instead of breaking the
+generated CSS. Only affects the theme that sets it; every other theme keeps the stock
+speed for its animation type.
 
 ---
 
@@ -57,7 +67,7 @@ is an opacity throb. Set `null` to inherit only claude.ai's own motion.
 | `catppuccin-macchiato` | cat head | 1 | currentColor | `pulse` |
 | `catppuccin-frappe` | cat head | 1 | currentColor | `pulse` |
 | `catppuccin-latte` | coffee cup | 1 | currentColor | `pulse` |
-| `chai` | 8-ray sun | 1 | currentColor | `spin` |
+| `chai` | 8-ray sun | 1 | currentColor | `flare` |
 
 The three `catppuccin-*` dark variants intentionally **share** the cat-head shape; only
 `catppuccin-latte` (the light variant) gets the coffee cup.
@@ -155,7 +165,7 @@ M23 54 L65 54 L60 84 L28 84 Z M22 87 L66 87 L61 91 L27 91 Z M65 57 A 13 13 0 1 1
 
 ---
 
-### 8. `chai` - 8-ray sun (1 path, currentColor, `spin`)
+### 8. `chai` - 8-ray sun (1 path, currentColor, `flare`, 4s)
 
 A center disc with 8 tapered triangular rays radiating at 45deg spacing - a plain sun
 glyph. Follows the theme accent (deep spiced-gold in the "chai-light" variant, brighter
@@ -165,6 +175,9 @@ gold in "chai-dark").
   corners on the disc's edge (radius 20, +-9deg either side of the ray's spoke angle) and
   its tip at radius 42 - so the base sits flush against the disc with no seam gap.
 - Color: `currentColor` (no `fill`).
+- Animation: `flare` at `4s` (the stock `flare` default is 2.4s; chai overrides it slower
+  via `spinner.duration`) - a scale+glow throb reads as the sun flaring up and settling,
+  rather than spinning like a pinwheel.
 
 ```
 M30 50 a 20 20 0 1 0 40 0 a 20 20 0 1 0 -40 0 Z M46.87 30.25 L50.00 8.00 L53.13 30.25 Z M61.76 33.82 L79.70 20.30 L66.18 38.24 Z M69.75 46.87 L92.00 50.00 L69.75 53.13 Z M66.18 61.76 L79.70 79.70 L61.76 66.18 Z M53.13 69.75 L50.00 92.00 L46.87 69.75 Z M38.24 66.18 L20.30 79.70 L33.82 61.76 Z M30.25 53.13 L8.00 50.00 L30.25 46.87 Z M33.82 38.24 L20.30 20.30 L38.24 33.82 Z
