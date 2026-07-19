@@ -153,10 +153,17 @@ Shape format (in your theme object):
   "viewBox": "0 0 100 100",          // optional, default "0 0 100 100"
   "match": "m19.6 66.5 19.7-11",     // optional override of the star path signature
   "animation": "spin|bounce|pulse|flare|null",
-  "duration": "2s",                  // optional, overrides the stock per-type speed
+  "duration": "2s",                  // optional, overrides the stock per-type speed -- NOT read by flare
   "paths": [ { "d": "...", "fill": "#hex" }, ... ]   // omit "fill" => currentColor (follows accent)
 }
 ```
+
+`flare` is different from the other three: it animates **individual paths**, not the
+whole glyph - the first path is a static center, and paths 2-9 (up to 8) each retract
+toward the center and back out on their own fixed duration+delay, so a multi-ray shape
+(like `chai`'s sun) flickers instead of pulsing in unison. See
+[baseline/SPINNER_SHAPES.md](../baseline/SPINNER_SHAPES.md#spec-format-per-theme) for
+the full mechanics.
 
 See [baseline/SPINNER_SHAPES.md](../baseline/SPINNER_SHAPES.md) for the full spec,
 the literal path data for each shape, and a DevTools-console recipe for swapping a
