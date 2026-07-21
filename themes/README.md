@@ -111,7 +111,7 @@ dual-variant and live inside the patch:
 | `catppuccin-frappe` | Catppuccin **Latte** (light) | Catppuccin **Frappe** (dark) - mauve accent | cat head (`pulse`) |
 | `catppuccin-latte` | Catppuccin **Latte** (light) | Catppuccin **Mocha** (dark) | coffee cup (`pulse`) |
 | `mario` | sky-blue overworld: pale-blue surfaces, dark-navy text, Mario-red accent | warm-brick underground: brown surfaces, cream text, Mario-red accent + coin-gold/pipe-green status | mushroom (`bounce`) |
-| `chai` | "chai-light": warm cream/beige surfaces, deep spiced-gold accent | "chai-dark": deep spiced-brown surfaces, brighter gold accent | sun (`flare`) |
+| `chai` | "chai-light": warm cream/beige surfaces, deep spiced-gold accent | "chai-dark": deep spiced-brown surfaces, brighter gold accent | none (stock star) |
 
 Notes:
 
@@ -133,7 +133,7 @@ claude.ai's brand-star glyph (matched by its path signature) and swaps in your p
 keeping the `<svg>` wrapper so the accent color and box size are preserved. Animation
 keyframes ship alongside the theme CSS.
 
-The eight shapes that ship with the built-ins:
+The seven shapes that ship with the built-ins:
 
 | Theme | Shape | Color | Animation |
 |-------|-------|-------|-----------|
@@ -144,7 +144,9 @@ The eight shapes that ship with the built-ins:
 | `catppuccin-macchiato` | cat head | accent (`currentColor`) | `pulse` |
 | `catppuccin-frappe` | cat head | accent (`currentColor`) | `pulse` |
 | `catppuccin-latte` | coffee cup | accent (`currentColor`) | `pulse` |
-| `chai` | 8-ray sun | accent (`currentColor`) | `flare` |
+
+`chai` intentionally has **no** `spinner` field - it keeps Claude's own stock star,
+just recolored via the theme accent like everything else.
 
 Shape format (in your theme object):
 
@@ -152,18 +154,10 @@ Shape format (in your theme object):
 "spinner": {
   "viewBox": "0 0 100 100",          // optional, default "0 0 100 100"
   "match": "m19.6 66.5 19.7-11",     // optional override of the star path signature
-  "animation": "spin|bounce|pulse|flare|null",
-  "duration": "2s",                  // optional, overrides the stock per-type speed -- NOT read by flare
+  "animation": "spin|bounce|pulse|null",
   "paths": [ { "d": "...", "fill": "#hex" }, ... ]   // omit "fill" => currentColor (follows accent)
 }
 ```
-
-`flare` is different from the other three: it animates **individual paths**, not the
-whole glyph - the first path is a static center, and paths 2-9 (up to 8) each retract
-toward the center and back out on their own fixed duration+delay, so a multi-ray shape
-(like `chai`'s sun) flickers instead of pulsing in unison. See
-[baseline/SPINNER_SHAPES.md](../baseline/SPINNER_SHAPES.md#spec-format-per-theme) for
-the full mechanics.
 
 See [baseline/SPINNER_SHAPES.md](../baseline/SPINNER_SHAPES.md) for the full spec,
 the literal path data for each shape, and a DevTools-console recipe for swapping a

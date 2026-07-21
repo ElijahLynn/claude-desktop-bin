@@ -28,8 +28,8 @@ its path data, its color strategy, and how to swap/test one live in the running 
 "spinner": {
   "viewBox": "0 0 100 100",          // optional, default "0 0 100 100"
   "match": "m19.6 66.5 19.7-11",     // optional override of the star path signature
-  "animation": "spin|bounce|pulse|flare|null",
-  "duration": "2s",                  // optional, overrides the stock per-type speed (see below) -- NOT read by `flare`
+  "animation": "spin|bounce|pulse|null",
+  "duration": "2s",                  // optional, overrides the stock per-type speed (see below)
   "paths": [ { "d": "...", "fill": "#hex" }, ... ]   // omit "fill" => currentColor
 }
 ```
@@ -40,30 +40,21 @@ to `--accent-brand`). An **explicit hex** pins a fixed color - needed only for t
 multi-color Mario mushroom. Every single-color shape below omits `fill` so it follows
 the theme's brand accent.
 
-**Animation:** adds a `cdb-anim-<spin|bounce|pulse|flare>` class to the replaced `<svg>`.
-The keyframes live in the theme CSS (`insertCSS` path), not the injector. `spin` rotates
+**Animation:** adds a `cdb-anim-<spin|bounce|pulse>` class to the replaced `<svg>`. The
+keyframes live in the theme CSS (`insertCSS` path), not the injector. `spin` rotates
 about the glyph center (`transform-box: fill-box`), `bounce` is a vertical hop, `pulse`
-is a flat opacity throb. `flare` is different in kind from the other three: it targets
-**individual paths**, not the whole `<svg>` - built for radiating multi-path shapes like
-`chai`'s sun. The **first** path (`:nth-child(1)`) is treated as a static center/disc and
-gets no animation; each of the next 8 paths (`:nth-child(2)` through `:nth-child(9)`) gets
-its own `cdbRayRetract` scale(1 -> .5 -> 1) animation on its **own** hardcoded
-duration+delay, so they drift in and out of phase instead of pulsing in unison - a shape
-with fewer than 9 paths just leaves the higher `:nth-child` selectors unmatched. Set
-`null` to inherit only claude.ai's own motion.
+is an opacity throb. Set `null` to inherit only claude.ai's own motion.
 
-**Duration:** `spin`/`bounce`/`pulse` each have a stock default (1s/.8s/1.2s). The
-optional `duration` field (e.g. `"2s"`, `"500ms"`) overrides whichever of those three
-types the theme uses - validated against `/^\d+(\.\d+)?m?s$/` in the patch, so a
-malformed value silently falls back to the stock default instead of breaking the
-generated CSS. Only affects the theme that sets it; every other theme keeps the stock
-speed for its type. **`flare` does not read `duration`** - its 8 ray timings are fixed
-in the patch (they are inherently 8 independent values, not one number); a future
-`rayDurations`-style field could make that themeable if ever needed by a second theme.
+**Duration:** each animation type has a stock default (`spin` 1s, `bounce` .8s, `pulse`
+1.2s). The optional `duration` field (e.g. `"2s"`, `"500ms"`) overrides whichever type
+the theme uses - validated against `/^\d+(\.\d+)?m?s$/` in the patch, so a malformed
+value silently falls back to the stock default instead of breaking the generated CSS.
+Only affects the theme that sets it; every other theme keeps the stock speed for its
+animation type.
 
 ---
 
-## The 8 shapes
+## The 7 shapes
 
 | Theme | Shape | Paths | Color | Animation |
 |-------|-------|-------|-------|-----------|
@@ -74,10 +65,10 @@ in the patch (they are inherently 8 independent values, not one number); a futur
 | `catppuccin-macchiato` | cat head | 1 | currentColor | `pulse` |
 | `catppuccin-frappe` | cat head | 1 | currentColor | `pulse` |
 | `catppuccin-latte` | coffee cup | 1 | currentColor | `pulse` |
-| `chai` | 8-ray sun | 1 | currentColor | `flare` |
 
 The three `catppuccin-*` dark variants intentionally **share** the cat-head shape; only
-`catppuccin-latte` (the light variant) gets the coffee cup.
+`catppuccin-latte` (the light variant) gets the coffee cup. `chai` intentionally has no
+shape at all - it keeps Claude's own stock star, just recolored via the theme accent.
 
 ---
 
@@ -168,33 +159,6 @@ the right wall, and two slim S-curve steam wisps rising above. Follows the theme
 
 ```
 M23 54 L65 54 L60 84 L28 84 Z M22 87 L66 87 L61 91 L27 91 Z M65 57 A 13 13 0 1 1 65 81 L65 75 A 7 7 0 1 0 65 63 Z M40 50 C45 44 35 40 42 34 C45 28 37 24 40 18 L36 18 C33 24 41 28 38 34 C31 40 41 44 36 50 Z M52 50 C57 44 47 40 54 34 C57 28 49 24 52 18 L48 18 C45 24 53 28 50 34 C43 40 53 44 48 50 Z
-```
-
----
-
-### 8. `chai` - 8-ray sun (9 paths: 1 static disc + 8 independently-animated rays, `flare`)
-
-A center disc with 8 tapered triangular rays radiating at 45deg spacing - a plain sun
-glyph. Follows the theme accent (deep spiced-gold in the "chai-light" variant, brighter
-gold in "chai-dark"). Unlike every other shape here, this one is **9 separate paths**,
-not 1 - the `flare` animation type (see Spec format above) needs each ray as its own
-`<path>` so it can retract independently.
-
-- Construction: center disc radius 20; each ray is a 3-point triangle with its two base
-  corners on the disc's edge (radius 20, +-9deg either side of the ray's spoke angle) and
-  its tip at radius 42 - so the base sits flush against the disc with no seam gap. The
-  original single-path version (all 9 subpaths unioned into one `d`, nonzero fill-rule)
-  is kept below for reference/copy-paste convenience; the shipped spec splits it into 9
-  `paths` entries so `flare` can target them individually.
-- Color: `currentColor` (no `fill`), inherited per-path from the `<svg>`'s own fill.
-- Animation: `flare` - the disc (path 1) stays static; each ray (paths 2-9) retracts
-  toward the center and back out (`scale(1) -> scale(.5) -> scale(1)`) on its own
-  duration (3.3s-4.8s) and negative delay, so the 8 rays drift in and out of phase
-  instead of pulsing in unison - reads as flares flickering, not a spinning pinwheel and
-  not a single uniform pulse.
-
-```
-M30 50 a 20 20 0 1 0 40 0 a 20 20 0 1 0 -40 0 Z M46.87 30.25 L50.00 8.00 L53.13 30.25 Z M61.76 33.82 L79.70 20.30 L66.18 38.24 Z M69.75 46.87 L92.00 50.00 L69.75 53.13 Z M66.18 61.76 L79.70 79.70 L61.76 66.18 Z M53.13 69.75 L50.00 92.00 L46.87 69.75 Z M38.24 66.18 L20.30 79.70 L33.82 61.76 Z M30.25 53.13 L8.00 50.00 L30.25 46.87 Z M33.82 38.24 L20.30 20.30 L38.24 33.82 Z
 ```
 
 ---
