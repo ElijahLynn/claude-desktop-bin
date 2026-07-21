@@ -29,6 +29,7 @@ its path data, its color strategy, and how to swap/test one live in the running 
   "viewBox": "0 0 100 100",          // optional, default "0 0 100 100"
   "match": "m19.6 66.5 19.7-11",     // optional override of the star path signature
   "animation": "spin|bounce|pulse|null",
+  "duration": "2s",                  // optional, overrides the stock per-type speed (see below)
   "paths": [ { "d": "...", "fill": "#hex" }, ... ]   // omit "fill" => currentColor
 }
 ```
@@ -43,6 +44,13 @@ the theme's brand accent.
 keyframes live in the theme CSS (`insertCSS` path), not the injector. `spin` rotates
 about the glyph center (`transform-box: fill-box`), `bounce` is a vertical hop, `pulse`
 is an opacity throb. Set `null` to inherit only claude.ai's own motion.
+
+**Duration:** each animation type has a stock default (`spin` 1s, `bounce` .8s, `pulse`
+1.2s). The optional `duration` field (e.g. `"2s"`, `"500ms"`) overrides whichever type
+the theme uses - validated against `/^\d+(\.\d+)?m?s$/` in the patch, so a malformed
+value silently falls back to the stock default instead of breaking the generated CSS.
+Only affects the theme that sets it; every other theme keeps the stock speed for its
+animation type.
 
 ---
 
@@ -59,7 +67,8 @@ is an opacity throb. Set `null` to inherit only claude.ai's own motion.
 | `catppuccin-latte` | coffee cup | 1 | currentColor | `pulse` |
 
 The three `catppuccin-*` dark variants intentionally **share** the cat-head shape; only
-`catppuccin-latte` (the light variant) gets the coffee cup.
+`catppuccin-latte` (the light variant) gets the coffee cup. `chai` intentionally has no
+shape at all - it keeps Claude's own stock star, just recolored via the theme accent.
 
 ---
 

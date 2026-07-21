@@ -237,7 +237,15 @@ The Mario theme ships a **light "overworld"** and a **dark "underground"** varia
 |-------------------|--------------------|
 | ![Mario theme - light](themes/mario/2026-06-26_14-46-chat-light.png) | ![Mario theme - dark](themes/mario/2026-06-26_14-46-chat-dark.png) |
 
-**Built-in themes** (each with a light + dark palette and a custom spinner):
+The `chai` theme ships a warm cream/beige **"chai-light"** and a deep spiced-brown **"chai-dark"** variant - it keeps Claude's own stock loading spinner, just recolored to match:
+
+| chai-light | chai-dark |
+|------------|-----------|
+| ![chai theme - light](themes/chai/2026-07-18_mockup-light.png) | ![chai theme - dark](themes/chai/2026-07-18_mockup-dark.png) |
+
+> These two are a rendered mockup driven by the actual theme CSS/JSON ([themes/THEME_PREVIEW.html](themes/THEME_PREVIEW.html)), not a live app capture like Mario's screenshots above - the colors and layout are pixel-accurate to what you'll see, but it's not a `claude-desktop` window. A real capture is a welcome follow-up contribution.
+
+**Built-in themes** (each with a light + dark palette; most also ship a custom spinner):
 
 | Theme | Light variant | Dark variant | Spinner |
 |-------|---------------|--------------|---------|
@@ -248,6 +256,7 @@ The Mario theme ships a **light "overworld"** and a **dark "underground"** varia
 | `catppuccin-macchiato` | Latte | Macchiato | cat |
 | `catppuccin-frappe` | Latte | Frappe | cat |
 | `catppuccin-latte` | Latte | Mocha | coffee cup |
+| `chai` | chai-light: warm cream/beige, spiced-gold accent | chai-dark: deep spiced-brown, brighter gold accent | none (stock star) |
 
 Each theme can also inject raw `customCss` and replace the loading glyph with a custom SVG. See **[themes/README.md](themes/README.md)** for the schema, CSS-variable reference, contrast tips, and how to author your own.
 
